@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PostCard extends StatefulWidget {
-  const PostCard({super.key,});
+  final int id;
+  final String title;
+  final String body;
+  final int likes;
+  final List comments;
+  final int shares;
+  const PostCard({super.key, required this.id, required this.title, required this.body, required this.likes, required this.comments, required this.shares,});
 
   @override
   State<PostCard> createState() => _PostCardState();
@@ -35,8 +41,8 @@ class _PostCardState extends State<PostCard> {
                   backgroundImage: NetworkImage("https://s3-alpha-sig.figma.com/img/a57f/7188/c5c7aa2da965020d4f85fee632bb0bc2?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LaR2Y49G3PxRvrs1VxfTcegUldTJeQ1ksv-nYDrr8W-6t7i4dpkXhf-wZdJfiGfJBUg4IZdTiui3YrqS-wA3F346DgQwtAfX82tf5pfVsYj-QZNvR-VAapyvA80yq2qTb2Ub1gOVdcleBJZG78-YWtbvHStVwYDw4JG8-5KogHEVRwtB~ZuaRlN96RdPGQa~4DBx4McDrESrdzl1DJ0uZP39FRZwyQiTEKFnZiivP0SyBGj6yLwMWwr3WkaiDRI3MRRRI82dGXT57ywMuaY6iSJlmv5l2x0AQAvfCyvk5dumkAkrCRnPRg3ZKrnvJOzNolbKVn08A6AYQM1e5eaCCQ__"),
                   radius: 20,
                 ),
-                title: Text("Arneo Paris", style: GoogleFonts.nunito(color: blackText, fontSize: 12, fontWeight: FontWeight.w400),),
-                subtitle: Text("Arneo", style: GoogleFonts.nunito(color: blackText, fontSize: 10, fontWeight: FontWeight.w400)),
+                title: Text(widget.title, style: GoogleFonts.nunito(color: blackText, fontSize: 12, fontWeight: FontWeight.w400),),
+                subtitle: Text(widget.title, style: GoogleFonts.nunito(color: blackText, fontSize: 10, fontWeight: FontWeight.w400)),
                 trailing: IconButton(
                   onPressed: null,
                   icon: Icon(Icons.more_horiz_rounded, color: greyButtonColor),),
@@ -51,7 +57,7 @@ class _PostCardState extends State<PostCard> {
               ),
               Container(
                 padding: EdgeInsets.only(left: 13, right: 13),
-                  child: Text("we need to start with the basics. A fundamental under of blogging will help... see more", style: GoogleFonts.roboto(color: blackText, fontSize: 14, fontWeight: FontWeight.w400))
+                  child: Text(widget.body, style: GoogleFonts.roboto(color: blackText, fontSize: 14, fontWeight: FontWeight.w400))
               ),
               Divider(thickness: 0.3,),
               Row(
