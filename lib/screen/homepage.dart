@@ -1,10 +1,13 @@
 import 'package:employeeforumsassignment/database/database_helper.dart';
 import 'package:employeeforumsassignment/database/post_data.dart';
 import 'package:employeeforumsassignment/models/post.dart';
+import 'package:employeeforumsassignment/provider/postprovider.dart';
+import 'package:employeeforumsassignment/screen/filter.dart';
 import 'package:employeeforumsassignment/utils/colors_fonts.dart';
 import 'package:employeeforumsassignment/widgets/post_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class Homepage extends StatefulWidget{
   const Homepage({super.key});
@@ -21,6 +24,7 @@ class _HomepageState extends State<Homepage> {
 
 
   Future<void> _initializeData() async {
+    final postProvider = Provider.of<PostProvider>(context, listen:false);
     final dbHelper = DatabaseHelper.instance;
 
     // Check if the database is empty
@@ -30,10 +34,20 @@ class _HomepageState extends State<Homepage> {
       await PostData().fetchPostApi(1);
       // Insert manual data
       await PostData().insertManualData();
-      await _loadDataFromDatabase();
+
+      //Check if the filter is applied
+      if(postProvider.filter.isEmpty) {
+        await _loadDataFromDatabase();
+      }else{
+        await _performFilter(postProvider.filter);
+      }
     } else {
-      // Load data from the database
-      await _loadDataFromDatabase();
+      if(postProvider.filter.isEmpty) {
+        // Load data from the database
+        await _loadDataFromDatabase();
+      }else{
+        await _performFilter(postProvider.filter);
+      }
     }
     setState(() {});
   }
@@ -69,6 +83,22 @@ class _HomepageState extends State<Homepage> {
       if(_searchController.text.isEmpty){
         posts = [];
         _initializeData();
+      }
+    });
+  }
+
+  //Filter posts based on eventCategory
+  Future _performFilter(String query) async {
+    final dbHelper = DatabaseHelper.instance;
+    List<Map<String, dynamic>> results = await dbHelper.filterPosts(query);
+    List<Post> filterPosts = results.map((json) => Post.fromJson(json)).toList();
+    setState(() {
+      posts = [];
+      posts.addAll(filterPosts);
+      if(results.isEmpty){
+        isEmpty = true;
+      }else{
+        isEmpty = false;
       }
     });
   }
@@ -142,9 +172,9 @@ class _HomepageState extends State<Homepage> {
                       ),
                     ),
                   ),
-                  const IconButton(
-                    onPressed: null,
-                    icon: Icon(Icons.tune_rounded, color: textColor,),
+                  IconButton(
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FilterPage())),
+                    icon: const Icon(Icons.tune_rounded, color: textColor,),
                   ),
                 ],
               ),

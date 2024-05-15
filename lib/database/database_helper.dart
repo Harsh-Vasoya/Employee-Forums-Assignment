@@ -68,6 +68,15 @@ class DatabaseHelper {
     return searchResults;
   }
 
+  Future<List<Map<String, dynamic>>> filterPosts(String query) async {
+    final Database db = await instance.database;
+    List<Map<String, dynamic>> filterResults = await db.rawQuery('''
+      SELECT * FROM posts
+      WHERE eventCategory LIKE '%$query%'
+    ''');
+    return filterResults;
+  }
+
   Future<int> getPostCount() async {
     Database db = await instance.database;
     return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM posts'))!;

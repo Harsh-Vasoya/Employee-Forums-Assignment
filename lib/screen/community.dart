@@ -1,4 +1,4 @@
-
+import 'package:employeeforumsassignment/screen/filter.dart';
 import 'package:employeeforumsassignment/utils/colors_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,9 +70,9 @@ class _CommuntiypageState extends State<Communtiypage> {
                       ),
                     ),
                   ),
-                  const IconButton(
-                    onPressed: null,
-                    icon: Icon(Icons.tune_rounded, color: textColor,),
+                  IconButton(
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FilterPage())),
+                    icon: const Icon(Icons.tune_rounded, color: textColor,),
                   ),
                 ],
               ),
