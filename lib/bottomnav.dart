@@ -1,4 +1,7 @@
+import 'package:employeeforumsassignment/screen/community.dart';
 import 'package:employeeforumsassignment/screen/homepage.dart';
+import 'package:employeeforumsassignment/screen/liked.dart';
+import 'package:employeeforumsassignment/screen/saved.dart';
 import 'package:employeeforumsassignment/utils/colors_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +19,9 @@ class _BottomNavState extends State<BottomNav> {
 
   static final List<Widget> bottomnavItems = [
     const Homepage(),
-    const Homepage(),
-    const Homepage(),
-    const Homepage(),
+    const Likedpage(),
+    const Communtiypage(),
+    const Savedpage(),
   ];
 
   void pageChanged(int page){

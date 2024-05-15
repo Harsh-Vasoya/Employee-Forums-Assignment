@@ -1,36 +1,40 @@
 class Post{
-  final String id;
   final String title;
   final String description;
   final int likes;
-  final List comments;
+  final bool isLiked;
+  final bool isSaved;
+  final String eventCategory;
 
 
   const Post({
-    required this.id,
     required this.title,
     required this.description,
     required this.likes,
-    required this.comments,
+    required this.isLiked,
+    required this.isSaved,
+    required this.eventCategory,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'title': title,
       'description': description,
       'likes': likes,
-      'comments': comments,
+      'isLiked': isLiked ? 1 : 0,
+      'isSaved': isSaved ? 1 : 0,
+      'eventCategory': eventCategory,
     };
 }
 
   factory Post.fromJson(Map<String, dynamic> map) {
     return Post(
-      id: map['id'],
       title: map['title'],
       description: map['description'],
       likes: map['likes'],
-      comments: map['comments'],
+      isLiked: map['isLiked'] == 1,
+      isSaved: map['isSaved'] == 1,
+      eventCategory: map['eventCategory'],
     );
   }
 }

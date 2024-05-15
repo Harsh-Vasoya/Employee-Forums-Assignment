@@ -6,14 +6,14 @@ import 'package:employeeforumsassignment/widgets/post_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Homepage extends StatefulWidget{
-  const Homepage({super.key});
+class Likedpage extends StatefulWidget{
+  const Likedpage({super.key});
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<Likedpage> createState() => _LikedpageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _LikedpageState extends State<Likedpage> {
   final ScrollController controller = ScrollController();
   final TextEditingController _searchController = TextEditingController();
   List<Post> posts = [];
@@ -41,7 +41,7 @@ class _HomepageState extends State<Homepage> {
   //Load Data from the SQL Database
   Future<void> _loadDataFromDatabase() async {
     final dbHelper = DatabaseHelper.instance;
-    List<Map<String, dynamic>> data = await dbHelper.getPosts();
+    List<Map<String, dynamic>> data = await dbHelper.getLikedPosts();
     List<Post> postList = data.map<Post>((json) => Post.fromJson(json)).toList();
     setState(() {
       posts.addAll(postList);
@@ -72,8 +72,8 @@ class _HomepageState extends State<Homepage> {
       }
     });
   }
-  
-  
+
+
   @override
   void initState(){
     super.initState();
@@ -84,14 +84,14 @@ class _HomepageState extends State<Homepage> {
       }
     });
   }
-  
+
   @override
   void dispose(){
     super.dispose();
     _searchController.dispose();
   }
-  
-  
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -173,7 +173,7 @@ class _HomepageState extends State<Homepage> {
                         child: Center(child: CircularProgressIndicator()),
                       );
                     }
-                    }),
+                  }),
             ),
           ],
         ),
