@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.blue,
           brightness: Brightness.light,
+          useMaterial3: true,
         ),
         home: const BottomNav(page: 0),
       ),

@@ -5,6 +5,7 @@ import 'dart:convert';
 
 class PostData {
 
+  //Fetch the post from the Api
   Future fetchPostApi(int page) async {
     final dbHelper = DatabaseHelper.instance;
     var response  = await http.get(Uri.parse("https://post-api-omega.vercel.app/api/posts?page=$page"));
@@ -18,6 +19,7 @@ class PostData {
     }
   }
 
+  //Insert manual data for saving offline posts
   Future<void> insertManualData() async {
     final dbHelper = DatabaseHelper.instance;
     List<Post> initialPosts = [

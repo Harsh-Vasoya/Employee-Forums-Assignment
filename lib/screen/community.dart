@@ -12,6 +12,10 @@ class Communtiypage extends StatefulWidget{
 
 class _CommuntiypageState extends State<Communtiypage> {
 
+  //Refresh the posts
+  void onRefresh() async{
+  }
+
 
   @override
   void initState(){
@@ -34,53 +38,75 @@ class _CommuntiypageState extends State<Communtiypage> {
             icon: Icon(Icons.menu, color: textColor,),
           ),
           title: Text("DEMO APP", style: GoogleFonts.roboto(color: textColor, fontSize: 18, fontWeight: FontWeight.w500),),
-          actions: const [
-            IconButton(
-              onPressed: null,
-              icon: Icon(Icons.notifications_none_rounded, color: textColor,),
+          actions: [
+            Stack(
+              children: [
+                const IconButton(
+                  onPressed: null,
+                  icon: Icon(Icons.notifications_none_rounded, color: textColor,),
+                ),
+                Positioned(
+                  top: 15,
+                  right: 15,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(40)),
+                    child: Container(
+                      width: 10,
+                      height: 10,
+                      color: bellNotificationColor,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
           centerTitle: true,
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              width: 393,
-              height: 67,
-              margin: const EdgeInsets.fromLTRB(8, 16, 10, 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 306,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: searchBackgroundColor,
-                    ),
-                    margin: const EdgeInsets.fromLTRB(9, 15, 9, 15),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search messages',
-                        hintStyle: GoogleFonts.roboto(color: textColor, fontSize: 16, fontWeight: FontWeight.w400),
-                        border: InputBorder.none, // Hide the default border of the TextField
-                        contentPadding: EdgeInsets.zero, // Remove extra padding inside the TextField
-                        prefixIcon: const Icon(Icons.search, color: greyColor,), // Optional: add a search icon
+        body: RefreshIndicator(
+          onRefresh: () async {
+            onRefresh();
+          },
+          color: blackText,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 393,
+                height: 67,
+                margin: const EdgeInsets.fromLTRB(8, 16, 10, 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 306,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: searchBackgroundColor,
+                      ),
+                      margin: const EdgeInsets.fromLTRB(9, 15, 9, 15),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search messages',
+                          hintStyle: GoogleFonts.roboto(color: greyColor, fontSize: 16, fontWeight: FontWeight.w400),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.zero,
+                          prefixIcon: const Icon(Icons.search, color: greyColor,),
+                        ),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FilterPage())),
-                    icon: const Icon(Icons.tune_rounded, color: textColor,),
-                  ),
-                ],
+                    IconButton(
+                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FilterPage())),
+                      icon: const Icon(Icons.tune_rounded, color: blueColor, size: 40,),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const Expanded(
-              child: Text("No community posts.")
-            ),
-          ],
+              const Expanded(
+                child: Text("No community posts.")
+              ),
+            ],
+          ),
         ),
       ),
     );

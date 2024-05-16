@@ -20,6 +20,7 @@ class _PostCardState extends State<PostCard> {
   bool _isSaved = false;
   int _likesCount = 0;
 
+  //Update the like status of the post in the database
   void updateLikeStatus(bool liked) async {
     final dbHelper = DatabaseHelper.instance;
     await dbHelper.updatePostLikeStatus(widget.title, liked, widget.likes);
@@ -29,6 +30,7 @@ class _PostCardState extends State<PostCard> {
     });
   }
 
+  //Update the saved status of the post in the database
   void updateSavedStatus(bool saved) async {
     final dbHelper = DatabaseHelper.instance;
     await dbHelper.updatePostSavedStatus(widget.title, saved);
@@ -73,12 +75,43 @@ class _PostCardState extends State<PostCard> {
                   icon: Icon(_isSaved? Icons.bookmark: Icons.bookmark_border_rounded), color: greyColor,),
               ),
               const SizedBox(height: 2),
-              Container(
-                alignment: Alignment.center,
-                width: double.infinity,
-                height: 336,
-                color: greyBoxColor,
-                child: const SizedBox()
+              Stack(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    height: 336,
+                    color: greyBoxColor,
+                    child: const SizedBox()
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                        width: 60,
+                        height: 27,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                          color: greyOp,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: const BorderRadius.all(Radius.circular(40)),
+                              child: Container(
+                                width: 10,
+                                height: 10,
+                                color: redColor,
+                              ),
+                            ),
+                            const SizedBox(width: 2,),
+                            const Text('Live', style: TextStyle(color: mobileBackgroundColor, fontSize: 14, fontWeight: FontWeight.w400),)
+                          ],
+                        )),
+                  ),
+                ],
               ),
               Container(
                 padding: const EdgeInsets.only(left: 13, right: 13),

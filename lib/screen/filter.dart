@@ -15,12 +15,14 @@ class _FilterPageState extends State<FilterPage> {
   String selected = '';
   final List<String> category = ['Sports', 'Concert'];
 
+  //Change selected filter
   void changedSelected(String value){
     setState(() {
       selected = value;
     });
   }
 
+  //Get filter from provider state
   void getFilter(){
     final postProvider = Provider.of<PostProvider>(context, listen:false);
     setState(() {
@@ -28,11 +30,13 @@ class _FilterPageState extends State<FilterPage> {
     });
   }
 
+  //Apply the filter by saving in the provider state
   Future applyFilter() async {
     final postProvider = Provider.of<PostProvider>(context, listen:false);
     await postProvider.applyFilter(selected);
   }
 
+  //Clear the filter by clearing in the provider state
   Future clearFilter() async {
     final postProvider = Provider.of<PostProvider>(context, listen:false);
     setState(() {

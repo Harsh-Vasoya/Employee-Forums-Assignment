@@ -17,6 +17,7 @@ class BottomNav extends StatefulWidget{
 class _BottomNavState extends State<BottomNav> {
   int _page = 0;
 
+  //BottomNavigation Items
   static final List<Widget> bottomnavItems = [
     const Homepage(),
     const Likedpage(),
@@ -41,28 +42,38 @@ class _BottomNavState extends State<BottomNav> {
     return SafeArea(
       child: Scaffold(
         body:  bottomnavItems[_page],
-        bottomNavigationBar: CupertinoTabBar(
-          backgroundColor: blackOp,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded, color: _page==0? Colors.white: Colors.white70,),
-              label: 'Feed',
+        bottomNavigationBar: Container(
+          width: 373,
+          height: 63,
+          margin: const EdgeInsets.all(10),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            child: CupertinoTabBar(
+              backgroundColor: blackOp,
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_rounded, color: _page==0? Colors.blue: mobileBackgroundColor),
+                  label: 'Feed',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite_rounded, color: _page==1? Colors.blue: mobileBackgroundColor),
+                  label: 'Liked',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.group, color: _page==2? Colors.blue: mobileBackgroundColor),
+                  label: 'Community',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.bookmark_border_rounded, color: _page==3? Colors.blue: mobileBackgroundColor),
+                  label: 'Saved',
+                ),
+              ],
+              onTap: pageChanged,
+              currentIndex: _page,
+              activeColor: mobileBackgroundColor,
+              inactiveColor: mobileBackgroundColor,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_rounded, color: _page==1? Colors.white: Colors.white70,),
-              label: 'Liked',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.group, color: _page==2? Colors.white: Colors.white70,),
-              label: 'Community',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark_border_rounded, color: _page==3? Colors.white: Colors.white70,),
-              label: 'Saved',
-            ),
-          ],
-          onTap: pageChanged,
-          currentIndex: _page,
+          ),
         ),
       ),
     );

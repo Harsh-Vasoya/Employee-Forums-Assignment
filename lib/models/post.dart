@@ -1,3 +1,4 @@
+//Post model
 class Post{
   final String title;
   final String description;

@@ -5,6 +5,7 @@ class PostProvider extends ChangeNotifier{
   String _filter = '';
   String get filter => _filter;
 
+  //State for saving the chosen filter
   Future<void> applyFilter(String value) async {
     try{
       _filter = value;
